@@ -7,7 +7,7 @@ A clean, production-style scaffold for a real-time 1:1 (and future group) chat. 
 - Backend: Node.js, Express, Socket.io, MongoDB (Mongoose), JWT, bcrypt, Helmet, CORS, Rate Limiting
 - Infra: MongoDB Atlas (or local), Vercel/Netlify for FE, Render/Railway for BE
 
-## Features
+## Featuress
 - Register/Login with JWT
 - List users and create 1:1 conversation
 - Real-time messages with Socket.io
