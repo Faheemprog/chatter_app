@@ -5,7 +5,6 @@ import { requireAuth } from '../middleware/auth.js';
 
 const router = express.Router();
 
-// Create or get a 1:1 conversation
 router.post('/conversations', requireAuth, async (req, res) => {
   const { otherUserId } = req.body;
   if(!otherUserId) return res.status(400).json({ message: 'otherUserId required' });
@@ -16,13 +15,11 @@ router.post('/conversations', requireAuth, async (req, res) => {
   res.json(convo);
 });
 
-// List conversations for current user
 router.get('/conversations', requireAuth, async (req, res) => {
   const items = await Conversation.find({ members: req.user.id }).sort({ updatedAt: -1 });
   res.json(items);
 });
 
-// Get messages for a conversation (simple pagination by createdAt<cursor)
 router.get('/messages/:conversationId', requireAuth, async (req, res) => {
   const { conversationId } = req.params;
   const { cursor } = req.query;
