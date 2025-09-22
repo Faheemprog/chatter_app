@@ -19,7 +19,6 @@ app.use(helmet());
 app.use(express.json());
 app.use(morgan('dev'));
 
-// basic rate limit for auth endpoints
 const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 200 });
 app.use('/api/auth', limiter);
 
@@ -32,7 +31,6 @@ const io = new Server(server, {
   cors: { origin: process.env.CLIENT_ORIGIN?.split(',') || ['http://localhost:5173'], credentials: true }
 });
 
-// Socket layer
 io.use(authSocket);
 io.on('connection', (socket) => {
   const userId = socket.user?.id;
@@ -58,10 +56,6 @@ io.on('connection', (socket) => {
       text: msg.text,
       createdAt: msg.createdAt
     });
-  });
-
-  socket.on('chat:message:seen', async ({ messageId }) => {
-    // Optional: implement seenBy; left as extension
   });
 
   socket.on('disconnect', () => {});
